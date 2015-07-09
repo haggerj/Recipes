@@ -28,6 +28,7 @@ namespace butil {
    class BranLinkedList {
       public:
          // Default constructor should be generated automatically.
+         ~BranLinkedList();
 
          bool pushBack(LLPayload_t toAdd);
          LLPayload_t popFront(void);
@@ -38,6 +39,7 @@ namespace butil {
          LLPayload_t peekBack(void);
          
          unsigned int getSize(void);
+         bool isEmpty(void);
 
          class Iterator {
             public:
