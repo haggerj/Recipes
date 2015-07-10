@@ -23,7 +23,7 @@ namespace butil {
          LLPayload_t val;
          BranLinkedListNode * next;
          BranLinkedListNode * prev;
-   }
+   };
 
    class BranLinkedList {
       public:

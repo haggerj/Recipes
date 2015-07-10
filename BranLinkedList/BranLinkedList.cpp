@@ -13,18 +13,18 @@ namespace butil {
    bool BranLinkedList::pushBack( LLPayload_t toAdd ) {
       // This must be new'ed, because it will continue to exist.
       // Deleted in destructor or on pop
-      BranLinkedListNode * newNode = NULL;
+      BranLinkedListNode * newNode = nullptr;
 
       try {
          newNode = new BranLinkedListNode();
-      } catch ( std::badalloc& ba ) {
+      } catch ( std::bad_alloc& ba ) {
          return false;
       }
 
       newNode->val = toAdd;
       newNode->prev = this->tail;
 
-      if ( this->head == NULL ) {
+      if ( this->head == nullptr ) {
         this->head = newNode;
         this->tail = newNode;
       } else {
@@ -37,18 +37,18 @@ namespace butil {
    }
 
    bool BranLinkedList::pushFront( LLPayload_t toAdd ) {
-      BranLinkedList Node * newNode = NULL;
+      BranLinkedListNode * newNode = nullptr;
 
       try {
          newNode = new BranLinkedListNode();
-      } catch ( std::badalloc& ba ) {
+      } catch ( std::bad_alloc& ba ) {
          return false;
       }
 
       newNode->val = toAdd;
       newNode->next = this->head;
 
-      if ( this->tail == NULL) {
+      if ( this->tail == nullptr) {
          this->tail = newNode;
          this->head = newNode;
       } else {
@@ -65,16 +65,16 @@ namespace butil {
    }
 
    LLPayload_t BranLinkedList::popFront( void ) {
-      if ( this->head == NULL ) {
-         return NULL;
+      if ( this->head == nullptr ) {
+         return nullptr;
       }
 
       BranLinkedListNode * oldHead = this->head;
       this->head = this->head->next;      
-      if ( this-> head != NULL ) {
-         this->head->prev = NULL;
+      if ( this-> head != nullptr ) {
+         this->head->prev = nullptr;
       } else {
-         this->tail = NULL;
+         this->tail = nullptr;
       }
       --this->size;
 
@@ -83,25 +83,25 @@ namespace butil {
       return value;
    }
 
-   LLPayload_t BranLinkedList::peekFront( void ) {
-      if ( this->head == NULL ) {
-         return NULL;
+   LLPayload_t BranLinkedList::peekBack( void ) {
+      if ( this->head == nullptr ) {
+         return nullptr;
       }
 
       return this->head->val;
    }
 
    LLPayload_t BranLinkedList::popBack( void ) {
-      if ( this->tail == NULL ) {
-         return NULL;
+      if ( this->tail == nullptr ) {
+         return nullptr;
       }
 
-      BranLinkedListNode oldTail = this->tail;
+      BranLinkedListNode * oldTail = this->tail;
       this->tail = this->tail->prev;
-      if ( this->tail != NULL ) {
-         this->tail->next = NULL;
+      if ( this->tail != nullptr ) {
+         this->tail->next = nullptr;
       } else {
-         this->head = NULL;
+         this->head = nullptr;
       }
       --this->size;
 
@@ -110,25 +110,17 @@ namespace butil {
       return value;
    }
 
-   LLPayload_t BranLinkedList::peekBack( void ) {
-      if ( this->tail == NULL ) {
-         return NULL;
-      }
-
-      return this->tail->val;
-   }
-
    bool BranLinkedList::isEmpty( void ) {
-      return this->head == NULL;
+      return this->head == nullptr;
    }
 
    unsigned int BranLinkedList::getSize( void ) {
       return this->size;
    }
 
-   ~BranLinkedList::BranLinkedList() {
+   BranLinkedList::~BranLinkedList() {
       while ( !this->isEmpty() ) {
-         BranLinkedListNode temp = this->head;
+         BranLinkedListNode * temp = this->head;
          this->head = this->head->next;
 
          /*
@@ -136,7 +128,7 @@ namespace butil {
           * should be looing at this state, but it might help
           * with consistency checks in the future.
           */
-         this->head->prev = NULL;
+         this->head->prev = nullptr;
          --this->size;
 
          /* 
