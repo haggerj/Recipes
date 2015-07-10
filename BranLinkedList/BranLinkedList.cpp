@@ -119,17 +119,9 @@ namespace butil {
    }
 
    BranLinkedList::~BranLinkedList() {
-      while ( !this->isEmpty() ) {
+      while ( !( this->isEmpty() ) ) {
          BranLinkedListNode * temp = this->head;
          this->head = this->head->next;
-
-         /*
-          * These next two steps seem silly, since no one else
-          * should be looing at this state, but it might help
-          * with consistency checks in the future.
-          */
-         this->head->prev = nullptr;
-         --this->size;
 
          /* 
           * We are almost certainly leaking memory for whatever

@@ -28,6 +28,7 @@ namespace butil {
    class BranLinkedList {
       public:
          // Default constructor should be generated automatically.
+         BranLinkedList() : head(nullptr), tail(nullptr), size(0) {}
          ~BranLinkedList();
 
          bool pushBack(LLPayload_t toAdd);
