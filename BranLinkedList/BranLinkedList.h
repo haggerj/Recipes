@@ -44,16 +44,16 @@ namespace butil {
 
          class Iterator {
             public:
-                Iterator(BranLinkedList * lst) : mylst(lst) {}
-		~Iterator();
-                
+                Iterator(BranLinkedListNode * lst) : mylst(lst) {}
+                ~Iterator() {}
+                 
                 bool operator==(const Iterator& other);
                 bool operator!=(const Iterator& other);
                 Iterator& operator++();
-                Iterator& operator++(int);
+                Iterator operator++(int);
                 LLPayload_t& operator*();
             private:
-               BranLinkedList * mylst;
+               BranLinkedListNode * mylst;
          };
 
          Iterator begin(void);

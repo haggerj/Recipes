@@ -138,4 +138,39 @@ namespace butil {
       }
    }
 
+   BranLinkedList::Iterator BranLinkedList::begin( void ) {
+      return BranLinkedList::Iterator( this->head );
+   }
+
+   BranLinkedList::Iterator BranLinkedList::end( void ) {
+      return BranLinkedList::Iterator( nullptr );
+   }
+
+   BranLinkedList::Iterator& BranLinkedList::Iterator::operator++() {
+      if ( this->mylst != nullptr ) {
+         this->mylst = this->mylst->next;
+      }
+      return *this;
+   }
+
+   BranLinkedList::Iterator BranLinkedList::Iterator::operator++(int) {
+      BranLinkedList::Iterator tmp(this->mylst);
+      ++(*this);
+      return tmp;
+   }
+
+   LLPayload_t& BranLinkedList::Iterator::operator*() {
+      return this->mylst->val;
+   }
+
+   bool BranLinkedList::Iterator::operator==( const 
+        BranLinkedList::Iterator& other ) {
+      return this->mylst == other.mylst;
+   }
+
+   bool BranLinkedList::Iterator::operator!=( const
+        BranLinkedList::Iterator& other ) {
+      return this->mylst != other.mylst;
+   }
+
 }

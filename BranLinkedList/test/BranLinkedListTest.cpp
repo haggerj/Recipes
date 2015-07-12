@@ -216,6 +216,90 @@ bool deleteNonEmptyList( void ) {
    return true;
 }
 
+bool iteratorIncrementTest( void ) {
+   BranLinkedList lst;
+
+   unsigned arr [] = { 0, 1, 2 };
+   for (unsigned i = 0; i < 3; ++i ) {
+      lst.pushBack( &arr[i] );
+   }
+
+   for ( BranLinkedList::Iterator lstIter = lst.begin();
+        lstIter != lst.end(); ++lstIter ) {
+      unsigned * ptr = (unsigned *) *lstIter;
+      *ptr = *ptr + 1;
+   }
+
+   for ( unsigned i = 0; i < 3; ++i ) {
+      if ( arr[i] != i + 1 ) {
+         std::cout << "element " << i 
+                   << " should have been icremented" << std::endl;
+         return false;
+      }
+   }
+
+   return true;
+}
+
+bool iteratorEqualTest( void ) {
+   BranLinkedList lst;
+
+   int one = 1;
+   int two = 2;
+   lst.pushBack( &one );
+   lst.pushBack( &two );
+
+   BranLinkedList::Iterator iter = lst.begin();
+   BranLinkedList::Iterator iterTwo = lst.begin();
+
+   if ( ! ( iter == iterTwo ) ) {
+      std::cout << "two begin iterators are not equal" << std::endl;
+      return false;
+   }
+
+   iterTwo++;
+ 
+   if ( iter == iterTwo ) {
+      std::cout << "iterators at different steps are equal" << std::endl;
+      return false;
+   }
+
+   iterTwo++;
+   iter = lst.end();
+   if ( ! ( iter == iterTwo ) ) {
+      std::cout << "two end iterators are not equal" << std::endl;
+      return false;
+   }
+
+   return true;
+}
+
+bool iteratorDifferentLists( void ) {
+   int one = 1;
+
+   BranLinkedList lst;
+   lst.pushBack( &one );
+   BranLinkedList::Iterator iter = lst.begin();
+
+   BranLinkedList lstTwo;
+   lstTwo.pushBack( &one );
+   BranLinkedList::Iterator iterTwo = lstTwo.begin();
+
+   if ( iter == iterTwo ) {
+      std::cout << "iterators for different lists should not be equal"
+                << std::endl;
+      return false;
+   }
+
+   if ( ! ( iter != iterTwo ) ) {
+      std::cout << "iterators for different lists should be unequal" 
+                << std::endl;
+      return false;
+   }
+
+   return true;
+}
+
 // This method just calls the various tests above.
 int main( int argv, char ** argc ) {
    if ( createList() ) {
@@ -254,4 +338,16 @@ int main( int argv, char ** argc ) {
       std::cout << "Delete non-empty list passed successfully (but check valgrind)" << std::endl;
    }
 
+   if ( iteratorIncrementTest() ) {
+      std::cout << "Increment iterator test passed successfully" << std::endl;
+   }
+
+   if ( iteratorEqualTest() ) {
+      std::cout << "Iterator equal test passed successfully" << std::endl;
+   }
+
+   if ( iteratorDifferentLists() ) {
+      std::cout << "Iterators of different lists test passed successfully"
+                << std::endl;
+   }
 }
