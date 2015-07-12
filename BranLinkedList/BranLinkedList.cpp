@@ -61,6 +61,10 @@ namespace butil {
    }
 
    LLPayload_t BranLinkedList::peekFront( void ) {
+      if ( this->head == nullptr ) {
+         return nullptr;
+      }
+
       return this->head->val;
    }
 
@@ -84,11 +88,11 @@ namespace butil {
    }
 
    LLPayload_t BranLinkedList::peekBack( void ) {
-      if ( this->head == nullptr ) {
+      if ( this->tail == nullptr ) {
          return nullptr;
       }
 
-      return this->head->val;
+      return this->tail->val;
    }
 
    LLPayload_t BranLinkedList::popBack( void ) {
