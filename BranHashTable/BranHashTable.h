@@ -50,7 +50,14 @@ namespace butil {
 
          class Iterator {
             public:
-               Iterator( BranHashTable * table) : myTable(table);
+               Iterator( BranHashTable * table, unsigned startBucket ) : 
+                         myTable(table), bucket(startBucket) {
+                  if ( startBucket < myTable.numBuckets ) {
+                     bucketIter = (*myTable)[startBucket].begin();
+                  } else {
+                     bucketIter = (*myTable)[myTable->numBuckets - 1].end();
+                  }
+               }
                ~Iterator() {}
 
                bool operator==(const Iterator& other);
@@ -60,6 +67,8 @@ namespace butil {
                LLPayload_t& operator*();
             private:
                BranHashTable * myTable;
+               unsigned bucket;
+               BranLinkedList::Iterator bucketIter;
          }
 
          Iterator begin(void);
