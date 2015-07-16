@@ -52,6 +52,8 @@ namespace butil {
                 Iterator& operator++();
                 Iterator operator++(int);
                 LLPayload_t& operator*();
+                
+                Iterator remove();
             private:
                BranLinkedListNode * mylst;
          };

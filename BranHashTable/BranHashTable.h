@@ -34,7 +34,7 @@ namespace butil {
       public:
          // Implementing the default constructor here because it uses
          // list initialization
-         BranHashTable() : numBuckets(113) {
+         BranHashTable() : numBuckets(113), numElements(0) {
             /*
              * Since these are linked lists and not pointers to linked
              * lists, each linked list should be default initialized
@@ -81,6 +81,7 @@ namespace butil {
           */
          BranLinkedList * buckets;
          unsigned numBuckets;
+         unsigned numElements;
    };
 }
 
